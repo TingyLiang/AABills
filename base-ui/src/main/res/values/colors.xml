@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/main_blue</color>
+    <color name="colorPrimaryDark">@color/main_blue</color>
+    <color name="colorAccent">#FFFF4081</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="black_5">#0d000000</color>
+    <color name="black_10">#1A000000</color>
+    <color name="black_20">#33000000</color>
+    <color name="black">#000000</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_85">#d9FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="main_blue">#FF009FDE</color>
+    <color name="main_blue_light">#99009FDE</color>
+    <color name="main_green">#FF9CE17B</color>
+    <color name="stroke_gray">#FFDCE1EB</color>
+    <color name="line_gray">#FFE5E5E5</color>
+    <color name="hint_color">#FF999999</color>
+
+    <color name="text_color_black">#FF1A1A1A</color>
+    <color name="text_color_normal">#FF333333</color>
+    <color name="text_color_gray">@color/hint_color</color>
+    <color name="text_color_minor">#FF878787</color>
+    <color name="tab_text_normal">#FFA9B5B7</color>
+    <color name="center_toast_bg">#CC1A1A1A</color>
+</resources>

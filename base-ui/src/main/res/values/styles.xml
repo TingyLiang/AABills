@@ -1,0 +1,134 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/CustomActionBar</item>
+    </style>
+
+    <style name="CustomActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="contentInsetStart">0dp</item><!-- 设置该属性解决左侧空白部分-->
+        <item name="contentInsetEnd">0dp</item><!-- 设置该属性解决右侧空白部分-->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- 文本常用风格 -->
+    <style name="TextNoPadding">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    <style name="TextSmallMain" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/main_blue</item>
+
+    </style>
+
+    <style name="TextSmallBlack" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/text_color_black</item>
+    </style>
+
+    <style name="TextSmallWhite" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextSmallGray" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/text_color_gray</item>
+    </style>
+
+    <style name="TextSmallMinor" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/text_color_minor</item>
+    </style>
+    <style name="TextDefMain" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/main_blue</item>
+    </style>
+
+    <style name="TextDefBlack" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/text_color_black</item>
+    </style>
+    <style name="TextDefWhite" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextDefGray" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/text_color_gray</item>
+    </style>
+
+    <style name="TextDefMinor" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/text_color_minor</item>
+    </style>
+
+    <style name="TextBigMain" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textColor">@color/main_blue</item>
+    </style>
+
+    <style name="TextBigBlack" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textColor">@color/text_color_black</item>
+    </style>
+    <style name="TextBigWhite" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextBigGray" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textColor">@color/text_color_gray</item>
+    </style>
+
+    <style name="TextBigMinor" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_big</item>
+        <item name="android:textColor">@color/text_color_minor</item>
+    </style>
+
+    <style name="TextBiggerMain" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_bigger</item>
+        <item name="android:textColor">@color/main_blue</item>
+    </style>
+
+    <style name="TextBiggerBlack" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_bigger</item>
+        <item name="android:textColor">@color/text_color_black</item>
+    </style>
+    <style name="TextBiggerWhite" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_bigger</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextBiggerGray" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_bigger</item>
+        <item name="android:textColor">@color/text_color_gray</item>
+    </style>
+
+    <style name="TextBiggerMinor" parent="TextNoPadding">
+        <item name="android:textSize">@dimen/text_size_bigger</item>
+        <item name="android:textColor">@color/text_color_minor</item>
+    </style>
+
+    <style name="DivLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/line_gray</item>
+    </style>
+
+</resources>
