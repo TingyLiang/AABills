@@ -182,10 +182,17 @@ public class ViewUtils {
         return drawable;
     }
 
-    public static GradientDrawable getDrawableBg(@ColorRes int color, @DimenRes int cornerR) {
-        GradientDrawable drawable = getDrawableBg(color);
+    public static GradientDrawable getDrawableBg(@ColorRes int colorRes, @DimenRes int cornerRes) {
+        GradientDrawable drawable = getDrawableBg(colorRes);
         Resources res = BaseApplication.getInstance().getResources();
-        drawable.setCornerRadius(res.getDimensionPixelSize(cornerR));
+        drawable.setCornerRadius(res.getDimensionPixelSize(cornerRes));
+        return drawable;
+    }
+    public static GradientDrawable getDrawableBg(@ColorRes int normalColorRes, @ColorRes int pressedColorRes, @DimenRes int cornerRes) {
+        GradientDrawable drawable = new GradientDrawable();
+        Resources res = BaseApplication.getInstance().getResources();
+        drawable.setColor(getCheckableColors(normalColorRes, pressedColorRes));
+        drawable.setCornerRadius(res.getDimensionPixelSize(cornerRes));
         return drawable;
     }
 

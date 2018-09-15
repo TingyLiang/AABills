@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">AA账本</string>
     <string name="slogan">记录小团队的美好生活</string>
+    <string name="tab_add_bill">记账</string>
+    <string name="tab_statistic">统计</string>
+    <string name="tab_user_center">我的</string>
+
+    <string name="title_add_bill">@string/tab_add_bill</string>
+    <string name="add_bill_sel_type">选择本次消费物品</string>
+    <string-array name="bill_types">
+        <item>果蔬</item>
+        <item>蛋肉</item>
+        <item>粮油</item>
+        <item>零食</item>
+        <item>水费</item>
+        <item>电费</item>
+        <item>气费</item>
+        <item>网费</item>
+        <item>物业费</item>
+    </string-array>
+    <string name="add_bill_total_amount">总消费金额</string>
+    <string name="add_bill_date">消费日期</string>
+    <string name="add_a_bill">记一笔</string>
 </resources>

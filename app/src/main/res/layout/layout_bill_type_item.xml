@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="data"
+            type="com.shenyong.aabills.listdata.BillTypeData" />
+    </data>
+
+    <CheckBox
+        android:id="@+id/cb_bill_type_item"
+        android:layout_width="80dp"
+        android:layout_height="32dp"
+        style="@style/TextDefGray"
+        tools:text="水果"
+        android:textColor="@{data.mTextColor}"
+        android:gravity="center"
+        android:text="@{data.mDesc}"
+        android:button="@null"
+        android:checkedButton="@null"
+        android:checked="@{data.checked}"
+        android:background="@{data.mItemBg}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</layout>

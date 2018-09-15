@@ -32,7 +32,7 @@ public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseHolde
         mListData.removeOnListChangedCallback(mListChangeListener);
     }
 
-    public void updateData(List<BaseHolderData> listData) {
+    public void updateData(List<? extends BaseHolderData> listData) {
         if (!ArrayUtils.isEmpty(listData)) {
             mListData.clear();
             mListData.addAll(listData);
