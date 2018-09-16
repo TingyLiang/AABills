@@ -11,7 +11,7 @@
 
     <CheckBox
         android:id="@+id/cb_bill_type_item"
-        android:layout_width="80dp"
+        android:layout_width="match_parent"
         android:layout_height="32dp"
         style="@style/TextDefGray"
         tools:text="水果"

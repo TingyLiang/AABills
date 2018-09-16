@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        debug {
+            keyAlias 'com.shenyong.aabills'
+            keyPassword '123456'
+            storeFile file('../keystore/debug.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     defaultConfig {
         applicationId rootProject.ext.android["applicationId"]
@@ -18,8 +26,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.debug
+        }
     }
-
     dataBinding {
         enabled true
     }

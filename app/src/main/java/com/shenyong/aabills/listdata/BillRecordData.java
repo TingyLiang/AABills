@@ -7,6 +7,8 @@ import com.shenyong.aabills.databinding.LayoutBillRecordItemBinding;
 
 public class BillRecordData extends BaseHolderData<BaseBindingHolder<LayoutBillRecordItemBinding>> {
 
+    public int mRecordId;
+
     public String mTime;
     public String mType;
     public String mAmount;
@@ -20,5 +22,15 @@ public class BillRecordData extends BaseHolderData<BaseBindingHolder<LayoutBillR
     public void onBindView(BaseBindingHolder<LayoutBillRecordItemBinding> holder) {
         super.onBindView(holder);
         holder.mBinding.setData(this);
+    }
+
+    @Override
+    public String toString() {
+        return "BillRecordData{" +
+                "mRecordId=" + mRecordId +
+                ", mTime='" + mTime + '\'' +
+                ", mType='" + mType + '\'' +
+                ", mAmount='" + mAmount + '\'' +
+                '}';
     }
 }

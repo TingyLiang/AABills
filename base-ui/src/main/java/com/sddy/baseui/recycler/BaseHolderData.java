@@ -10,6 +10,8 @@ public abstract class BaseHolderData<T extends BaseHolder> {
 
     public IItemClickLisntener mClicklistener;
 
+    public IItemClickLisntener mLongClickListener;
+
     public abstract @LayoutRes int getLayoutRes();
 
     public void onBindView(T holder) {

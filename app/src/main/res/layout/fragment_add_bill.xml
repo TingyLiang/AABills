@@ -34,6 +34,7 @@
             android:layout_marginTop="@dimen/margin_big"
             android:layout_marginStart="@dimen/margin_large"
             android:layout_marginEnd="@dimen/margin_large"
+            android:foregroundGravity=""
             app:layout_constraintTop_toBottomOf="@id/tv_add_bill_sel_type" />
 
         <View
@@ -182,7 +183,7 @@
             style="@style/TextBigWhite"
             android:layout_marginEnd="@dimen/margin_large"
             android:layout_marginStart="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_big"
             android:text="@string/add_a_bill"
             android:background="@drawable/selector_main_press_light_corner"
             android:onClick="@{(v)->presenter.onClick(v)}"

@@ -18,6 +18,7 @@ import com.sddy.baseui.dialog.MsgToast;
 import com.sddy.baseui.recycler.DefaultItemDivider;
 import com.sddy.baseui.recycler.IItemClickLisntener;
 import com.sddy.baseui.recycler.databinding.SimpleBindingAdapter;
+import com.sddy.utils.DimenUtils;
 import com.sddy.utils.TimeUtils;
 import com.sddy.utils.ViewUtils;
 import com.sddy.utils.log.Log;
@@ -53,6 +54,7 @@ public class AddBillsFragment extends BaseBindingFragment<FragmentAddBillBinding
     private List<BillTypeData> mTypeData = new ArrayList<>();
     private BillRecord mBill = new BillRecord();
     private List<User> mUsers = new ArrayList<>();
+    private int mSelYear, mSelMonth, mSelDay;
 
     @Override
     protected int getLayoutRes() {
@@ -75,14 +77,15 @@ public class AddBillsFragment extends BaseBindingFragment<FragmentAddBillBinding
         mBinding.rvAddBillTypes.setAdapter(mAdapter);
         mBinding.rvAddBillTypes.setLayoutManager(new GridLayoutManager(getContext(), 3));
         GradientDrawable drawable = ViewUtils.getDrawableBg(R.color.transparent);
-        drawable.setSize(1, getResources().getDimensionPixelSize(R.dimen.margin_big));
-        DefaultItemDivider decoration = new DefaultItemDivider(getContext(), DividerItemDecoration.VERTICAL);
+        drawable.setSize(DimenUtils.dp2px(40), getResources().getDimensionPixelSize(R.dimen.margin_big));
+        DefaultItemDivider decoration = new DefaultItemDivider(getContext(), DefaultItemDivider.GRID);
         decoration.setDrawable(drawable);
         mBinding.rvAddBillTypes.addItemDecoration(decoration);
         mAdapter.updateData(mTypeData);
 
         mBinding.tvAddBillDate.setText("选择日期");
 
+        mBinding.rgAddBillUser.setBackground(ViewUtils.getDrawableBg(R.color.white, R.dimen.margin_bigger));
         setHeadBg(mBinding.rbAddBillUserSy, mBinding.rbAddBillUserTy,
                 mBinding.rbAddBillUserQy, mBinding.rbAddBillUserSl);
         mBinding.rgAddBillUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -174,10 +177,16 @@ public class AddBillsFragment extends BaseBindingFragment<FragmentAddBillBinding
                 DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        mSelYear = year;
+                        mSelMonth = month;
+                        mSelDay  =dayOfMonth;
                         mBill.mTimestamp = new Date(year-1900, month, dayOfMonth).getTime();
                         mBinding.tvAddBillDate.setText(String.format("%d-%02d-%02d", year, month+1, dayOfMonth));
                     }
                 }, TimeUtils.getYear(), TimeUtils.getMonth(), TimeUtils.getDay());
+                if (mSelYear != 0) {
+                    dialog.updateDate(mSelYear, mSelMonth, mSelDay);
+                }
                 dialog.show();
                 break;
             case R.id.btn_add_bill_ok:

@@ -21,6 +21,7 @@ public class StartupActivity extends BaseActivity {
             @Override
             public void run() {
                 startActivity(MainActivity.class);
+                finish();
             }
         }, 2000);
     }

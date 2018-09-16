@@ -31,6 +31,9 @@ public abstract class BaseFragment extends Fragment implements Presenter {
 
     protected abstract @LayoutRes int getLayoutRes();
 
+    public void onShow() {
+
+    }
 
     protected abstract void onCreatedView(View rootView, Bundle savedInstanceState);
 

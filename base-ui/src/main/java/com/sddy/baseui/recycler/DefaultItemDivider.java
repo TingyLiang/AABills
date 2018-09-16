@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,8 @@ public class DefaultItemDivider extends RecyclerView.ItemDecoration {
 
     private static final String TAG = "DividerItem";
     private static final int[] ATTRS = new int[]{ android.R.attr.listDivider };
+
+    public static final int GRID = 2;
 
     private Drawable mDivider;
 
@@ -36,7 +40,7 @@ public class DefaultItemDivider extends RecyclerView.ItemDecoration {
     }
 
     public void setOrientation(int orientation) {
-        if (orientation != HORIZONTAL && orientation != VERTICAL) {
+        if (orientation != HORIZONTAL && orientation != VERTICAL && orientation != GRID) {
             throw new IllegalArgumentException(
                     "Invalid orientation. It should be either HORIZONTAL or VERTICAL");
         }
@@ -62,8 +66,11 @@ public class DefaultItemDivider extends RecyclerView.ItemDecoration {
         }
         if (mOrientation == VERTICAL) {
             drawVertical(c, parent);
-        } else {
+        } else if (mOrientation == HORIZONTAL) {
             drawHorizontal(c, parent);
+        } else if (mOrientation == GRID) {
+            // 网格布局
+            drawGrid(c, parent);
         }
     }
 
@@ -132,8 +139,78 @@ public class DefaultItemDivider extends RecyclerView.ItemDecoration {
         }
         if (mOrientation == VERTICAL) {
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-        } else {
+        } else if (mOrientation == HORIZONTAL) {
             outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+        } else if (mOrientation == GRID) {
+            int position = parent.getChildLayoutPosition(view);
+            int childCount = parent.getAdapter().getItemCount();
+            int spanCount = ((GridLayoutManager)parent.getLayoutManager()).getSpanCount();
+
+            int left = mDivider.getIntrinsicWidth() / 2;
+            int right = mDivider.getIntrinsicWidth() / 2;
+            int top = 0;
+            int bottom = mDivider.getIntrinsicHeight();
+            if (isFirstColumn(position, spanCount)) {
+                left = 0;
+//                right = mDivider.getIntrinsicWidth();
+            }
+            if (isLastColumn(position, spanCount)) {
+                right = 0;
+//                left = mDivider.getIntrinsicWidth() / 2;
+            }
+            if (isLastRow(position, spanCount, childCount)) {
+                bottom = 0;
+            }
+            outRect.set(left, top, right, bottom);
         }
+    }
+
+    private void drawGrid(Canvas canvas, RecyclerView parent) {
+//        canvas.save();
+//        int top;
+//        int bottom;
+//        int left;
+//        int right;
+//        if (parent.getClipToPadding()) {
+//            left = parent.getPaddingLeft();
+//            right = parent.getWidth() - parent.getPaddingRight();
+//            top = parent.getPaddingTop();
+//            bottom = parent.getHeight() - parent.getPaddingBottom();
+//            canvas.clipRect(left, top,
+//                    right, bottom);
+//        } else {
+//            top = 0;
+//            bottom = parent.getHeight();
+//        }
+
+        final int childCount = parent.getChildCount();
+//        GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();
+//        int spanCount = layoutManager.getSpanCount();
+        // 最后一个条目不要分割线
+        for (int i = 0; i < childCount; i++) {
+            drawVertical(canvas, parent);
+            drawHorizontal(canvas, parent);
+//            final View child = parent.getChildAt(i);
+//            parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
+//            right = mBounds.right + Math.round(child.getTranslationX());
+//            left = right - mDivider.getIntrinsicWidth();
+//            mDivider.setBounds(left, top, right, bottom);
+//            mDivider.draw(canvas);
+        }
+//        canvas.restore();
+    }
+
+    private boolean isFirstColumn(int position, int spanCount) {
+        return position % spanCount == 0;
+    }
+    private boolean isLastColumn(int position, int spanCount) {
+        return (position + 1) % spanCount == 0;
+    }
+    private boolean isFirstRow(int position, int spanCount) {
+        return position < spanCount;
+    }
+    private boolean isLastRow(int position, int spanCount, int childCount) {
+        int lines = childCount % spanCount == 0 ? childCount / spanCount : childCount / spanCount + 1;
+        return lines == position / spanCount + 1;
     }
 }

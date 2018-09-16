@@ -8,14 +8,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
 import com.sddy.baseui.BaseActivity;
+import com.sddy.baseui.BaseFragment;
 
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private Fragment mAddBillFragment;
-    private Fragment mStatisticFragment;
-    private Fragment mUserCenterFragment;
+    private BaseFragment mAddBillFragment;
+    private BaseFragment mStatisticFragment;
+    private BaseFragment mUserCenterFragment;
 
-    private Fragment mCurrentFragment;
+    private BaseFragment mCurrentFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         showFragment(mCurrentFragment);
     }
 
-    private void showFragment(Fragment fragment) {
+    private void showFragment(BaseFragment fragment) {
         if (fragment == null || fragment.isVisible()) {
             return;
         }
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             transaction.add(R.id.fl_main_content, fragment).commit();
         } else {
             transaction.show(fragment).commit();
+            fragment.onShow();
         }
     }
 
