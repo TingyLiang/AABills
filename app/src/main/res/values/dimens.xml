@@ -2,4 +2,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="bill_record_item_h">68dp</dimen>
+    <dimen name="circle_head_size">42dp</dimen>
+    <dimen name="circle_head_size_in_item">36dp</dimen>
+    <dimen name="head_color_panel">28dp</dimen>
 </resources>

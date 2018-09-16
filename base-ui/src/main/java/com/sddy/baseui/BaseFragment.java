@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -123,6 +125,19 @@ public abstract class BaseFragment extends Fragment implements Presenter {
 
     protected void onBackBtnClick() {
 
+    }
+
+    public void setTitleBackIcon(@DrawableRes int iconRes) {
+        if (mBtnBack != null) {
+            mBtnBack.setImageResource(iconRes);
+        }
+    }
+
+    public void setTitleBackIcon(@DrawableRes int iconRes, @ColorRes int tintColorRes) {
+        if (mBtnBack != null) {
+            mBtnBack.setImageResource(iconRes);
+            mBtnBack.setColorFilter(getResources().getColor(tintColorRes));
+        }
     }
 
     protected void setBackBtnVisible(boolean visible) {

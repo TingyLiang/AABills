@@ -2,6 +2,7 @@ package com.sddy.baseui.view;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
@@ -58,6 +59,19 @@ public class TitleBar extends ConstraintLayout {
     /** 标题栏返回按钮点击回调，通知页面处理关闭前的工作 */
     public void onTitleBackClick() {
 
+    }
+
+    public void setBackIcon(@DrawableRes int iconRes) {
+        if (mBtnBack != null) {
+            mBtnBack.setImageResource(iconRes);
+        }
+    }
+
+    public void setBackIcon(@DrawableRes int iconRes, @ColorRes int tintColorRes) {
+        if (mBtnBack != null) {
+            mBtnBack.setImageResource(iconRes);
+            mBtnBack.setColorFilter(getResources().getColor(tintColorRes));
+        }
     }
 
     public void setBackBtnCallback(OnClickListener onClickListener) {

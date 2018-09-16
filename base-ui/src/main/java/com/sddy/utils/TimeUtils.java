@@ -18,6 +18,11 @@ public class TimeUtils {
         return sdf.format(new Date());
     }
 
+    public static String getDateString(long timestamp, String pattern) {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
+        return sdf.format(new Date(timestamp));
+    }
+
     public static int getYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }

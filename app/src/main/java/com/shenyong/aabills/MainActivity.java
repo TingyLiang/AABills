@@ -28,12 +28,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         mAddBillFragment = AddBillsFragment.newInstance();
         mStatisticFragment = StatisticFragment.newInstance();
         mUserCenterFragment = UserCenterFragment.newInstance();
+        mCurrentFragment = mAddBillFragment;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        showFragment(mAddBillFragment);
+        showFragment(mCurrentFragment);
     }
 
     private void showFragment(Fragment fragment) {

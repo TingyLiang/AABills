@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.shenyong.aabills.listdata.BillRecordData" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bill_record_item_h"
+        android:background="@drawable/selector_press_white_light">
+
+
+        <TextView
+            android:id="@+id/tv_bill_record_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_big"
+            style="@style/TextDefBlack"
+            tools:text="2018年9月"
+            android:text="@{data.mTime}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_bill_record_amount"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_bill_record_types"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            style="@style/TextSmallGray"
+            android:maxLines="2"
+            tools:text="主要消费：各种杂七杂八各种杂七杂八各种杂七杂八各种杂七杂八各种杂七杂八"
+            android:text="@{data.mType}"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_small"
+            app:layout_constraintStart_toStartOf="@id/tv_bill_record_time"
+            app:layout_constraintEnd_toStartOf="@id/tv_bill_record_amount"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bill_record_time" />
+
+        <TextView
+            android:id="@+id/tv_bill_record_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_20dp"
+            style="@style/TextBiggerBlack"
+            android:textColor="#fff52c2c"
+            tools:text="1000元"
+            android:text="@{data.mAmount}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

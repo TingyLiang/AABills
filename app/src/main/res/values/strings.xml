@@ -21,4 +21,18 @@
     <string name="add_bill_total_amount">总消费金额</string>
     <string name="add_bill_date">消费日期</string>
     <string name="add_a_bill">记一笔</string>
+
+    <string name="no_record">还没有记录，快去记一笔吧</string>
+    <string name="statistic_month">月账单</string>
+    <string name="statistic_year">年账单</string>
+
+    <string name="title_user_center">个人中心</string>
+    <string name="user_center_head_color">头像颜色</string>
+    <string name="user_center_set_nickname">设置昵称</string>
+    <string name="set_nickname_title">编辑昵称</string>
+    <string name="user_center_sign_out">退出登录</string>
+    <string name="title_head_setting">设置头像</string>
+    <string name="head_setting_sel_color">设置头像</string>
+    <string name="head_setting_preview">设置头像</string>
+    <string name="head_setting_save">确认修改</string>
 </resources>

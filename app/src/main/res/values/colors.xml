@@ -7,4 +7,12 @@
     <color name="main_blue">#FF2A82E4</color>
     <color name="background_color">#FFE5E5E5</color>
 
+    <color name="btn_red">#FFD43030</color>
+    <color name="btn_red_light">#99D43030</color>
+
+    <color name="input_name_bg">#FFDDDDDD</color>
+    <color name="head_color_yellow">#FFFF8D1A</color>
+    <color name="head_color_red">#FFF83232</color>
+    <color name="head_color_cyan">#FF00BAAD</color>
+    <color name="head_color_gray">#FF808080</color>
 </resources>

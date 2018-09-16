@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
@@ -154,6 +156,19 @@ public class BaseActivity extends AppCompatActivity implements Presenter{
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
+        }
+    }
+
+    public void setTitleBackIcon(@DrawableRes int iconRes) {
+        if (mBtnBack != null) {
+            mBtnBack.setImageResource(iconRes);
+        }
+    }
+
+    public void setTitleBackIcon(@DrawableRes int iconRes, @ColorRes int tintColorRes) {
+        if (mBtnBack != null) {
+            mBtnBack.setImageResource(iconRes);
+            mBtnBack.setColorFilter(getResources().getColor(tintColorRes));
         }
     }
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="presenter"
+            type="com.shenyong.aabills.UserCenterFragment" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
+
+        <View
+            android:id="@+id/view_user_cennter_name_bg"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_margin="@dimen/margin_large"
+            tools:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_user_center_circle_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="申勇"
+            android:text="@{presenter.mName}"
+            style="@style/TextDefWhite"
+            android:gravity="center"
+            tools:background="@color/black"
+            android:background="@{presenter.mNameBg}"
+            android:layout_marginStart="@dimen/margin_large"
+            app:layout_constraintStart_toStartOf="@id/view_user_cennter_name_bg"
+            app:layout_constraintTop_toTopOf="@id/view_user_cennter_name_bg"
+            app:layout_constraintBottom_toBottomOf="@id/view_user_cennter_name_bg" />
+
+        <TextView
+            android:id="@+id/tv_user_center_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextDefBlack"
+            tools:text="申勇"
+            android:text="@{presenter.mName}"
+            android:layout_marginStart="@dimen/margin_20dp"
+            app:layout_constraintStart_toEndOf="@id/tv_user_center_circle_name"
+            app:layout_constraintTop_toTopOf="@id/view_user_cennter_name_bg"
+            app:layout_constraintBottom_toBottomOf="@id/view_user_cennter_name_bg" />
+
+        <View
+            android:id="@+id/view_user_cennter_setting_bg"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/margin_large"
+            tools:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/view_user_cennter_name_bg" />
+
+        <TextView
+            android:id="@+id/tv_user_center_color"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/TextDefBlack"
+            android:gravity="center_vertical"
+            android:text="@string/user_center_head_color"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:onClick="@{(v)->presenter.onClick(v)}"
+            android:drawableRight="@drawable/icon_item_more"
+            android:background="@drawable/selector_press_white_light"
+            app:layout_constraintTop_toTopOf="@id/view_user_cennter_setting_bg"
+            app:layout_constraintBottom_toTopOf="@id/view_user_center_setting_div"
+            app:layout_constraintStart_toStartOf="@id/view_user_cennter_setting_bg"
+            app:layout_constraintEnd_toEndOf="@id/view_user_cennter_setting_bg" />
+
+        <View
+            android:id="@+id/view_user_center_setting_div"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:background="@color/line_gray"
+            app:layout_constraintTop_toTopOf="@id/view_user_cennter_setting_bg"
+            app:layout_constraintBottom_toBottomOf="@id/view_user_cennter_setting_bg"
+            app:layout_constraintStart_toStartOf="@id/view_user_cennter_setting_bg"
+            app:layout_constraintEnd_toEndOf="@id/view_user_cennter_setting_bg" />
+
+        <TextView
+            android:id="@+id/tv_user_center_nickname"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            style="@style/TextDefBlack"
+            android:gravity="center_vertical"
+            android:text="@string/user_center_set_nickname"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:onClick="@{(v)->presenter.onClick(v)}"
+            android:drawableRight="@drawable/icon_item_more"
+            android:background="@drawable/selector_press_white_light"
+            app:layout_constraintTop_toBottomOf="@id/view_user_center_setting_div"
+            app:layout_constraintBottom_toBottomOf="@id/view_user_cennter_setting_bg"
+            app:layout_constraintStart_toStartOf="@id/view_user_cennter_setting_bg"
+            app:layout_constraintEnd_toEndOf="@id/view_user_cennter_setting_bg" />
+
+        <Button
+            android:id="@+id/btn_user_center_sign_out"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_common_h"
+            android:text="@string/user_center_sign_out"
+            android:layout_marginTop="90dp"
+            style="@style/TextBigWhite"
+            android:onClick="@{(v)->presenter.onClick(v)}"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_user_cennter_setting_bg" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
