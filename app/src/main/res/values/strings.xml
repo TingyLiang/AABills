@@ -27,6 +27,9 @@
     <string name="no_record">还没有记录，快去记一笔吧</string>
     <string name="statistic_month">月账单</string>
     <string name="statistic_year">年账单</string>
+    <string name="statistic_month_avg">月人均消费%1$.1f元</string>
+    <string name="statistic_year_avg">年人均消费%1$.1f元</string>
+    <string name="statistic_user_cost">垫付了%1$.1f元</string>
 
     <string name="title_user_center">个人中心</string>
     <string name="user_center_head_color">头像颜色</string>

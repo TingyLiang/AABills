@@ -103,11 +103,12 @@ public class StatisticFragment extends BaseFragment {
         mViewModel.loadBills(new BillsDataSource.LoadBillsCallback<BillRecordData>() {
             @Override
             public void onBillsLoaded(List<BillRecordData> bills) {
-//                for (BillRecordData recordData : bills) {
+                for (BillRecordData recordData : bills) {
 //                    recordData.mLongClickListener = mLongClickListener;
-//                    mListData.add(recordData);
-//                }
-                mListData.addAll(bills);
+                    recordData.mClicklistener = mClickListener;
+                    mListData.add(recordData);
+                }
+//                mListData.addAll(bills);
                 mAdapter.updateData(mListData);
             }
 
@@ -121,6 +122,13 @@ public class StatisticFragment extends BaseFragment {
             }
         });
     }
+
+    private IItemClickLisntener<BillRecordData> mClickListener = new IItemClickLisntener<BillRecordData>() {
+        @Override
+        public void onClick(final BillRecordData data, int position) {
+            startActivity(StatisticDetailActivity.class);
+        }
+    };
 
     private IItemClickLisntener<BillRecordData> mLongClickListener = new IItemClickLisntener<BillRecordData>() {
         @Override

@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".HeadSettingActivity"></activity>
+        <activity android:name=".HeadSettingActivity" />
+        <activity android:name=".StatisticDetailActivity"></activity>
     </application>
 
 </manifest>
