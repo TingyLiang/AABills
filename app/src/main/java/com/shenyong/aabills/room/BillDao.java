@@ -21,6 +21,9 @@ public interface BillDao {
     @Query("select * from bill_record")
     List<BillRecord> getAllBills();
 
+    @Query("select * from bill_record where mTimestamp >= :startTime and mTimestamp < :endTime")
+    List<BillRecord> getBills(long startTime, long endTime);
+
     @Query("select * from bill_record where mId = :billId")
     BillRecord queryBill(int billId);
 

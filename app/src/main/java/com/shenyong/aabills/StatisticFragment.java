@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.sddy.baseui.BaseActivity;
 import com.sddy.baseui.BaseFragment;
 import com.sddy.baseui.dialog.DialogFactory;
 import com.sddy.baseui.dialog.MsgDialog;
@@ -19,11 +20,16 @@ import com.sddy.baseui.recycler.IItemClickLisntener;
 import com.sddy.baseui.recycler.databinding.SimpleBindingAdapter;
 import com.sddy.utils.ArrayUtils;
 import com.sddy.utils.ViewUtils;
+import com.sddy.utils.log.Log;
 import com.shenyong.aabills.listdata.BillRecordData;
 import com.shenyong.aabills.listdata.EmptyData;
 import com.shenyong.aabills.room.BillsDataSource;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class StatisticFragment extends BaseFragment {
@@ -108,7 +114,6 @@ public class StatisticFragment extends BaseFragment {
                     recordData.mClicklistener = mClickListener;
                     mListData.add(recordData);
                 }
-//                mListData.addAll(bills);
                 mAdapter.updateData(mListData);
             }
 
@@ -126,7 +131,21 @@ public class StatisticFragment extends BaseFragment {
     private IItemClickLisntener<BillRecordData> mClickListener = new IItemClickLisntener<BillRecordData>() {
         @Override
         public void onClick(final BillRecordData data, int position) {
-            startActivity(StatisticDetailActivity.class);
+            SimpleDateFormat sdf = new SimpleDateFormat(BillStatisticsViewModel.PATTERN_MONTH);
+            Date date = null;
+            try {
+                date = sdf.parse(data.mTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            Log.Ui.d(date.toString());
+            long startTime = date.getTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.MONTH, 1);
+            Log.Ui.d(calendar.getTime().toString());
+            long endTime = calendar.getTimeInMillis();
+            StatisticDetailActivity.showThisPage((BaseActivity) getActivity(), data.mTime, startTime, endTime);
         }
     };
 

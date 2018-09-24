@@ -24,6 +24,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BillStatisticsViewModel {
 
+    public static final String PATTERN_MONTH = "yyyy年MM月";
+
     private BillRepository mBillRepository;
 
     public BillStatisticsViewModel() {
@@ -34,7 +36,7 @@ public class BillStatisticsViewModel {
         if (callback == null) {
             return;
         }
-        mBillRepository.getBills(new BillsDataSource.LoadBillsCallback<BillRecord>() {
+        mBillRepository.getAllBills(new BillsDataSource.LoadBillsCallback<BillRecord>() {
             @Override
             public void onBillsLoaded(List<BillRecord> bills) {
                 if (ArrayUtils.isEmpty(bills)) {
@@ -44,7 +46,7 @@ public class BillStatisticsViewModel {
                 final List<BillRecordData> billsData = new ArrayList<>();
                 final HashMap<String, List<BillRecord>> monthStat = new HashMap<>();
                 for (BillRecord billRecord : bills) {
-                    String month = TimeUtils.getDateString(billRecord.mTimestamp, "yyyy年MM月");
+                    String month = TimeUtils.getDateString(billRecord.mTimestamp, PATTERN_MONTH);
                     List<BillRecord> subList = monthStat.get(month);
                     if (subList == null) {
                         subList = new ArrayList<>();
@@ -74,46 +76,6 @@ public class BillStatisticsViewModel {
                     billsData.add(data);
                 }
                 callback.onBillsLoaded(billsData);
-                /**
-                Observable.fromArray(bills.toArray(new BillRecord[bills.size()]))
-                        .map(new Function<BillRecord, BillRecordData>() {
-                            @Override
-                            public BillRecordData apply(BillRecord billRecord) throws Exception {
-                                BillRecordData data = new BillRecordData();
-                                data.mRecordId = billRecord.mId;
-                                data.mTime = TimeUtils.getDateString(billRecord.mTimestamp, "yyyy年MM月");
-                                data.mType = "主要消费：" + billRecord.mType;
-                                data.mAmount = String.format("%.1f元", billRecord.mAmount);
-                                return data;
-                            }
-                        })
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<BillRecordData>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(BillRecordData billRecordData) {
-                                billsData.add(billRecordData);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                if (billsData.isEmpty()) {
-                                    callback.onDataNotAvailable();
-                                } else {
-                                    callback.onBillsLoaded(billsData);
-                                }
-                            }
-                        });*/
             }
 
             @Override

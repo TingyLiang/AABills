@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/TextSmallGray"
-            android:text="@{data.mPercent}"
+            android:text="@{data.mPercentStr}"
             tools:text="17.50%" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             style="@style/TextSmallBlack"
             android:layout_marginRight="@dimen/margin_large"
-            android:text="@{data.mAmount}"
+            android:text="@{data.mAmountStr}"
             tools:text="24.5" />
 
     </LinearLayout>

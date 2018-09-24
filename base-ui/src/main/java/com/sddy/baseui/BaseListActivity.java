@@ -35,7 +35,7 @@ public class BaseListActivity extends BaseActivity {
         mRvList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
-    protected void updateData(List<BaseHolderData> dataList) {
+    protected void updateData(List<? extends BaseHolderData> dataList) {
         mAdapter.updateData(dataList);
     }
 

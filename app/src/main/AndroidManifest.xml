@@ -20,6 +20,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HeadSettingActivity" />
         <activity android:name=".StatisticDetailActivity"></activity>
+        <activity android:name=".BillsListActivity"></activity>
     </application>
 
 </manifest>

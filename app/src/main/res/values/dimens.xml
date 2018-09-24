@@ -6,5 +6,6 @@
     <dimen name="bill_record_item_h">68dp</dimen>
     <dimen name="circle_head_size">42dp</dimen>
     <dimen name="circle_head_size_in_item">36dp</dimen>
+    <dimen name="circle_head_size_in_ost">45dp</dimen>
     <dimen name="head_color_panel">28dp</dimen>
 </resources>

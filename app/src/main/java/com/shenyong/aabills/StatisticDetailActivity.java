@@ -4,7 +4,9 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
+import com.sddy.baseui.BaseActivity;
 import com.sddy.baseui.BaseBindingActivity;
 import com.sddy.baseui.recycler.BaseHolderData;
 import com.sddy.baseui.recycler.DefaultItemDivider;
@@ -12,27 +14,81 @@ import com.sddy.baseui.recycler.databinding.SimpleBindingAdapter;
 import com.sddy.utils.ViewUtils;
 import com.shenyong.aabills.databinding.ActivityStatisticDetailBinding;
 import com.shenyong.aabills.listdata.StatisticTypeData;
+import com.shenyong.aabills.listdata.UserCostData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StatisticDetailActivity extends BaseBindingActivity<ActivityStatisticDetailBinding> {
 
-    private SimpleBindingAdapter mAdapter;
+    private static final int TYPE_MONTH = 1;
+    private static final int TYPE_YEAR = 2;
+
+    private static final String KEY_TIME = "stat.key.time";
+    private static final String KEY_TYPE = "stat.key.type";
+    private static final String KEY_START = "stat.key.start";
+    private static final String KEY_END = "stat.key.end";
+    private static final String KEY_YEAR = "stat.key.year";
+
+    private SimpleBindingAdapter mTypesAdapter;
     private SimpleBindingAdapter mCostAdapter;
-    private List<BaseHolderData> mTypesData = new ArrayList<>();
-    private List<BaseHolderData> mUserCostData = new ArrayList<>();
+    private StatisticViewModel mStatModel;
+    private int[] mColors;
+    private String mTitle;
+    private int mType;
+    private long mStartTime;
+    private long mEndTime;
+    private int mYear;
+
+    public static void showThisPage(BaseActivity activity, String title, long startTime, long endTime) {
+        Bundle data = new Bundle();
+        data.putInt(KEY_TYPE, TYPE_MONTH);
+        data.putString(KEY_TIME, title);
+        data.putLong(KEY_START, startTime);
+        data.putLong(KEY_END, endTime);
+        activity.startActivity(StatisticDetailActivity.class, data);
+    }
+
+    public static void showThisPage(BaseActivity activity, String time, int year) {
+        Bundle data = new Bundle();
+        data.putInt(KEY_TYPE, TYPE_YEAR);
+        data.putString(KEY_TIME, time);
+        data.putInt(KEY_YEAR, year);
+        activity.startActivity(StatisticDetailActivity.class, data);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle data = getIntent().getExtras();
+        if (data == null) {
+            finish();
+        }
+        mTitle = data.getString(KEY_TIME, "");
+        mType = data.getInt(KEY_TYPE);
+        mStartTime = data.getLong(KEY_START);
+        mEndTime = data.getLong(KEY_END);
+        mYear = data.getInt(KEY_YEAR);
         setContentView(R.layout.activity_statistic_detail);
-        setTitle("2018年9月");
+        initView();
+        mStatModel = new StatisticViewModel();
+        loadData();
+    }
+
+    private void initView() {
+        setTitle(mTitle);
         setTitleBackIcon(R.drawable.ic_nav_back, R.color.white);
-        mAdapter = new SimpleBindingAdapter();
-        mBindings.rvStatisticTypesDetail.setAdapter(mAdapter);
+        setFuncBtn(R.string.statistic_dedtail, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BillsListActivity.showThisPage(StatisticDetailActivity.this, mTitle,
+                        mStartTime, mEndTime);
+            }
+        });
+        mTypesAdapter = new SimpleBindingAdapter();
+        mBindings.rvStatisticTypesDetail.setAdapter(mTypesAdapter);
         mBindings.rvStatisticTypesDetail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        DefaultItemDivider itemDivider  =new DefaultItemDivider(this, DividerItemDecoration.VERTICAL);
+        DefaultItemDivider itemDivider = new DefaultItemDivider(this, DividerItemDecoration.VERTICAL);
         GradientDrawable drawable = ViewUtils.getDrawableBg(R.color.transparent);
         drawable.setSize(0, getResources().getDimensionPixelSize(R.dimen.margin_20dp));
         itemDivider.setDrawable(drawable);
@@ -41,43 +97,44 @@ public class StatisticDetailActivity extends BaseBindingActivity<ActivityStatist
         mCostAdapter = new SimpleBindingAdapter();
         mBindings.rvStatisticUserCost.setAdapter(mCostAdapter);
         mBindings.rvStatisticUserCost.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        itemDivider = new DefaultItemDivider(this, DividerItemDecoration.VERTICAL);
+        drawable = ViewUtils.getDrawableBg(R.color.line_gray);
+        drawable.setSize(0, getResources().getDimensionPixelSize(R.dimen.line_width_half));
+        itemDivider.setDrawable(drawable);
         mBindings.rvStatisticUserCost.addItemDecoration(itemDivider);
 
-        int[] colors = {0xFF2A82E4, 0xFF54BFC0, 0xFF5EBE67, 0xFFF4CC49, 0xFFE05667};
-        StatisticTypeData type = new StatisticTypeData();
-        type.mDotColor = colors[0];
-        type.mType = "果蔬";
-        type.mPercent = "23.53%";
-        type.mAmount = String.format("%.1f", 37.8);
-        mTypesData.add(type);
-        type = new StatisticTypeData();
-        type.mDotColor = colors[1];
-        type.mType = "蛋肉";
-        type.mPercent = "45.50%";
-        type.mAmount = String.format("%.1f", 79f);
-        mTypesData.add(type);
-        type = new StatisticTypeData();
-        type.mDotColor = colors[2];
-        type.mType = "粮油";
-        type.mPercent = "23.53%";
-        type.mAmount = String.format("%.1f", 37.8);
-        mTypesData.add(type);
-        type = new StatisticTypeData();
-        type.mDotColor = colors[3];
-        type.mType = "网费";
-        type.mPercent = "23.53%";
-        type.mAmount = String.format("%.1f", 37.8);
-        mTypesData.add(type);
-        type = new StatisticTypeData();
-        type.mDotColor = colors[4];
-        type.mType = "日用品";
-        type.mPercent = "23.53%";
-        type.mAmount = String.format("%.1f", 37.8);
-        mTypesData.add(type);
-        mAdapter.updateData(mTypesData);
-        mBindings.tvStatisticAvgCost.setText("月人均消费247.5元");
+        mColors = new int[] {R.color.main_blue,
+                R.color.type_color1,
+                R.color.type_color2,
+                R.color.type_color3,
+                R.color.type_color4};
+    }
 
-
-//        mUserCostData
+    private void loadData() {
+        mStatModel.loadStatisticData(mStartTime, mEndTime, new StatisticViewModel.LoadStatsticsCallback() {
+            @Override
+            public void onComplete(StatisticViewModel.StatData stat) {
+                double[] percents = new double[stat.mTypesData.size()];
+                double total = 0;
+                for (int i = 0; i < percents.length; i++) {
+                    StatisticTypeData data = stat.mTypesData.get(i);
+                    percents[i] = data.mPercent;
+                    data.mDotColor = mColors[i % mColors.length];
+                    total += data.mAmount;
+                }
+                for (int i = 0; i < stat.mCostData.size(); i++) {
+                    stat.mCostData.get(i).mColorRes = mColors[i % mColors.length];
+                }
+                mBindings.csvStatistic.setData(percents);
+                mBindings.csvStatistic.setCenterText(String.format("%.1f", total));
+                mTypesAdapter.updateData(stat.mTypesData);
+                if (mType == TYPE_MONTH) {
+                    mBindings.tvStatisticAvgCost.setText(getString(R.string.statistic_month_avg, stat.mAvgCost));
+                } else if (mType == TYPE_YEAR) {
+                    mBindings.tvStatisticAvgCost.setText(getString(R.string.statistic_year_avg, stat.mAvgCost));
+                }
+                mCostAdapter.updateData(stat.mCostData);
+            }
+        });
     }
 }

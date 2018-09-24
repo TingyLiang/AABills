@@ -1,6 +1,7 @@
 package com.shenyong.aabills.room;
 
 import android.annotation.SuppressLint;
+import android.arch.persistence.room.Query;
 
 import com.sddy.baseui.dialog.MsgToast;
 import com.sddy.utils.ArrayUtils;
@@ -29,8 +30,11 @@ public class BillRepository {
 
     private BillDao mBillDao;
 
+    private UserDao mUserDao;
+
     private BillRepository() {
         mBillDao = BillDatabase.getInstance().billDao();
+        mUserDao = BillDatabase.getInstance().userDao();
     }
 
     public static BillRepository getInstance() {
@@ -44,13 +48,78 @@ public class BillRepository {
         return mInstance;
     }
 
+    public User getUserBlocked(int userId) {
+        return mUserDao.queryUser(userId);
+    }
+
     @SuppressLint("CheckResult")
-    public void getBills(final BillsDataSource.LoadBillsCallback<BillRecord> callback) {
+    public void getAllBills(final BillsDataSource.LoadBillsCallback<BillRecord> callback) {
+        final List<BillRecord> bills = new ArrayList<>();
+        Observable.create(new ObservableOnSubscribe<BillRecord>() {
+            @Override
+            public void subscribe(ObservableEmitter<BillRecord> emitter) {
+                List<BillRecord> bills = mBillDao.getAllBills();
+                if (!ArrayUtils.isEmpty(bills)) {
+                    Collections.sort(bills, new Comparator<BillRecord>() {
+                        @Override
+                        public int compare(BillRecord o1, BillRecord o2) {
+                            if (o2.mTimestamp > o1.mTimestamp) {
+                                return 1;
+                            } else if (o2.mTimestamp < o1.mTimestamp) {
+                                return -1;
+                            }
+                            return 0;
+                        }
+                    });
+                    for (BillRecord billRecord : bills) {
+                        emitter.onNext(billRecord);
+                    }
+                }
+                emitter.onComplete();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BillRecord>() {
+                    @Override
+                    public void accept(BillRecord billRecord) {
+                        bills.add(billRecord);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        throwable.printStackTrace();
+                        if (callback == null) {
+                            return;
+                        }
+                        if (bills.isEmpty()) {
+                            callback.onDataNotAvailable();
+                        } else {
+                            callback.onBillsLoaded(bills);
+                        }
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() {
+                        if (callback == null) {
+                            return;
+                        }
+                        if (bills.isEmpty()) {
+                            callback.onDataNotAvailable();
+                        } else {
+                            callback.onBillsLoaded(bills);
+                        }
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    public void getBills(final long startTime, final long endTime, final BillsDataSource.LoadBillsCallback<BillRecord> callback) {
         final List<BillRecord> bills = new ArrayList<>();
         Observable.create(new ObservableOnSubscribe<BillRecord>() {
                 @Override
                 public void subscribe(ObservableEmitter<BillRecord> emitter) {
-                    List<BillRecord> bills = BillDatabase.getInstance().billDao().getAllBills();
+                    List<BillRecord> bills = mBillDao.getBills(startTime, endTime);
                     if (!ArrayUtils.isEmpty(bills)) {
                         Collections.sort(bills, new Comparator<BillRecord>() {
                             @Override
@@ -109,10 +178,9 @@ public class BillRepository {
         Observable.create(new ObservableOnSubscribe<String>() {
                 @Override
                 public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                    BillDao billDao = BillDatabase.getInstance().billDao();
-                    BillRecord billRecord = billDao.queryBill(billId);
+                    BillRecord billRecord = mBillDao.queryBill(billId);
                     if (billRecord != null) {
-                        billDao.deleteBill(billRecord);
+                        mBillDao.deleteBill(billRecord);
                         emitter.onNext("OK");
                     }
                     emitter.onComplete();
