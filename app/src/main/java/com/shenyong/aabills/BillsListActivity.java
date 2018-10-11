@@ -86,26 +86,24 @@ public class BillsListActivity extends BaseListActivity implements IItemClickLis
 
     @Override
     public void onClick(final BillRecordData data, int position) {
-        MsgDialog dialog = DialogFactory.confirmDialogWithoutTitle("确定删除该条记录？(" + data.toString() + ")",
-                new View.OnClickListener() {
+        MsgDialog dialog = DialogFactory.confirmDialogWithoutTitle("确定删除该条记录？(" + data.toString() + ")", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.delBill(data, new BillsDataSource.DelBillCallback() {
                     @Override
-                    public void onClick(View v) {
-                        mViewModel.delBill(data, new BillsDataSource.DelBillCallback() {
-                            @Override
-                            public void onDeleteSuccess() {
-                                MsgToast.centerToast("已删除选择的账单记录");
-                                mListData.remove(data);
-                                mAdapter.updateData(mListData);
-                            }
+                    public void onDeleteSuccess() {
+                        MsgToast.centerToast("已删除选择的账单记录");
+                        mListData.remove(data);
+                        mAdapter.updateData(mListData);
+                    }
 
-                            @Override
-                            public void onDeleteFailed() {
+                    @Override
+                    public void onDeleteFailed() {
 
-                            }
-                        });
                     }
                 });
-
+            }
+        });
 
         dialog.show(getSupportFragmentManager());
     }
