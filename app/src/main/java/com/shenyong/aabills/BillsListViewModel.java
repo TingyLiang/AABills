@@ -1,7 +1,5 @@
 package com.shenyong.aabills;
 
-import android.text.TextUtils;
-
 import com.sddy.utils.TimeUtils;
 import com.shenyong.aabills.listdata.BillRecordData;
 import com.shenyong.aabills.room.BillRecord;
@@ -50,7 +48,7 @@ public class BillsListViewModel {
                                 userMap.put(bill.mUserId, user);
                             }
                             BillRecordData data = new BillRecordData();
-                            data.mTime = TimeUtils.getDateString(bill.mTimestamp, "yyyy年MM月dd日")
+                            data.mTime = TimeUtils.getTimeString(bill.mTimestamp, "yyyy年MM月dd日")
                             + "-" + user.mName;
                             data.mType = "消费类型：" + bill.mType;
                             data.mAmount = String.format("%.1f元", bill.mAmount);
@@ -92,5 +90,9 @@ public class BillsListViewModel {
 
             }
         });
+    }
+
+    public void delBill(BillRecordData billRecordData, final BillsDataSource.DelBillCallback callback) {
+        mRepository.deleteBill(billRecordData.mRecordId, callback);
     }
 }

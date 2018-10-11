@@ -1,5 +1,7 @@
 package com.sddy.utils;
 
+import android.text.TextUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +20,8 @@ public class TimeUtils {
         return sdf.format(new Date());
     }
 
-    public static String getDateString(long timestamp, String pattern) {
+    public static String getTimeString(long timestamp, String pattern) {
+        pattern = TextUtils.isEmpty(pattern) ? PATTERN_TIME : pattern;
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
         return sdf.format(new Date(timestamp));
     }
@@ -33,5 +36,12 @@ public class TimeUtils {
 
     public static int getDay() {
         return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static String getTimeString(Date date, String format) {
+        date = date == null ? new Date() : date;
+        format = TextUtils.isEmpty(format) ? PATTERN_TIME : format;
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
+        return sdf.format(date);
     }
 }

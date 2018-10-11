@@ -8,19 +8,11 @@ import com.shenyong.aabills.room.BillRepository;
 import com.shenyong.aabills.room.BillsDataSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 public class BillStatisticsViewModel {
 
@@ -46,7 +38,7 @@ public class BillStatisticsViewModel {
                 final List<BillRecordData> billsData = new ArrayList<>();
                 final HashMap<String, List<BillRecord>> monthStat = new HashMap<>();
                 for (BillRecord billRecord : bills) {
-                    String month = TimeUtils.getDateString(billRecord.mTimestamp, PATTERN_MONTH);
+                    String month = TimeUtils.getTimeString(billRecord.mTimestamp, PATTERN_MONTH);
                     List<BillRecord> subList = monthStat.get(month);
                     if (subList == null) {
                         subList = new ArrayList<>();

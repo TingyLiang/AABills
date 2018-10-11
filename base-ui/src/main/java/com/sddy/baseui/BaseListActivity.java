@@ -18,7 +18,7 @@ import java.util.List;
 public class BaseListActivity extends BaseActivity {
 
     private RecyclerView mRvList;
-    private SimpleBindingAdapter mAdapter;
+    protected SimpleBindingAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

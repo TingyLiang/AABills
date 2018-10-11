@@ -1,15 +1,22 @@
 package com.shenyong.aabills;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.sddy.baseui.BaseActivity;
 import com.sddy.baseui.BaseListActivity;
+import com.sddy.baseui.dialog.DialogFactory;
+import com.sddy.baseui.dialog.MsgDialog;
+import com.sddy.baseui.dialog.MsgToast;
+import com.sddy.baseui.recycler.IItemClickLisntener;
 import com.sddy.baseui.recycler.databinding.SimpleBindingAdapter;
 import com.shenyong.aabills.listdata.BillRecordData;
+import com.shenyong.aabills.room.BillsDataSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class BillsListActivity extends BaseListActivity {
+public class BillsListActivity extends BaseListActivity implements IItemClickLisntener<BillRecordData> {
 
     private static final int TYPE_MONTH = 1;
     private static final int TYPE_YEAR = 2;
@@ -26,6 +33,7 @@ public class BillsListActivity extends BaseListActivity {
     private long mEndTime;
     private int mYear;
     private BillsListViewModel mViewModel;
+    private List<BillRecordData> mListData = new ArrayList<>();
 
     public static void showThisPage(BaseActivity activity, String title, long startTime, long endTime) {
         Bundle data = new Bundle();
@@ -54,6 +62,11 @@ public class BillsListActivity extends BaseListActivity {
         setTitleBackIcon(R.drawable.ic_nav_back, R.color.white);
 
         mViewModel = new BillsListViewModel();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadData();
     }
 
@@ -61,8 +74,39 @@ public class BillsListActivity extends BaseListActivity {
         mViewModel.loadBills(mStartTime, mEndTime, new BillsListViewModel.BillsListLoadCallback() {
             @Override
             public void onComplete(List<BillRecordData> bills) {
+                for (BillRecordData data : bills) {
+                    data.mLongClickListener = BillsListActivity.this;
+                }
+                mListData.clear();
+                mListData.addAll(bills);
                 updateData(bills);
             }
         });
+    }
+
+    @Override
+    public void onClick(final BillRecordData data, int position) {
+        MsgDialog dialog = DialogFactory.confirmDialogWithoutTitle("确定删除该条记录？(" + data.toString() + ")",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mViewModel.delBill(data, new BillsDataSource.DelBillCallback() {
+                            @Override
+                            public void onDeleteSuccess() {
+                                MsgToast.centerToast("已删除选择的账单记录");
+                                mListData.remove(data);
+                                mAdapter.updateData(mListData);
+                            }
+
+                            @Override
+                            public void onDeleteFailed() {
+
+                            }
+                        });
+                    }
+                });
+
+
+        dialog.show(getSupportFragmentManager());
     }
 }

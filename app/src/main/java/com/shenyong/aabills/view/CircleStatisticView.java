@@ -80,8 +80,6 @@ public class CircleStatisticView extends View {
             int cy = (int) (getHeight() / 2 + h / 2);
             canvas.drawText(mTotal, cx, cy, mTextPaint);
         }
-        mPaint.setStrokeWidth(4);
-        canvas.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2, mPaint);
     }
 
     public void setCenterText(String text) {
