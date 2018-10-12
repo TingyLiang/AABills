@@ -72,6 +72,11 @@ public class StatisticDetailActivity extends BaseBindingActivity<ActivityStatist
         setContentView(R.layout.activity_statistic_detail);
         initView();
         mStatModel = new StatisticViewModel();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadData();
     }
 

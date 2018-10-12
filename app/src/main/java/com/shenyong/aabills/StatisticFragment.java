@@ -159,7 +159,13 @@ public class StatisticFragment extends BaseFragment {
         final Calendar startDate = Calendar.getInstance();
         final Calendar endDate = Calendar.getInstance();
         //月份：0-11
-        startDate.set(2010,0,1);
+        startDate.set(2010,0,1, 0, 0, 0);
+        selectedDate.set(Calendar.HOUR_OF_DAY, 0);
+        selectedDate.set(Calendar.MINUTE, 0);
+        selectedDate.set(Calendar.SECOND, 0);
+        endDate.set(Calendar.HOUR_OF_DAY, 0);
+        endDate.set(Calendar.MINUTE, 0);
+        endDate.set(Calendar.SECOND, 0);
         TimePickerView timePickerView = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
@@ -171,13 +177,14 @@ public class StatisticFragment extends BaseFragment {
                 TimePickerView timePickerView = new TimePickerBuilder(getContext(), new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        long endTime = date.getTime();
-                        int startYear = startDate.get(Calendar.YEAR);
                         selectedDate.setTime(date);
+                        int startYear = startDate.get(Calendar.YEAR);
                         int endYear = selectedDate.get(Calendar.YEAR);
                         String title = TimeUtils.getTimeString(startTime, "yyyy年MM月dd日") + "-";
                         String endPattern = endYear == startYear ? "MM月dd日" : "yyyy年MM月dd日";
-                        title += TimeUtils.getTimeString(endTime, endPattern);
+                        title += TimeUtils.getTimeString(selectedDate.getTimeInMillis(), endPattern);
+                        selectedDate.add(Calendar.DAY_OF_MONTH, 1);
+                        long endTime = selectedDate.getTimeInMillis();
                         StatisticDetailActivity.showThisPage((BaseActivity) getActivity(), title, startTime, endTime);
                     }
                 })
